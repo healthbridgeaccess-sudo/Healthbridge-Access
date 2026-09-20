@@ -922,19 +922,23 @@ section[id] {
     <button class="contact-close" type="button" id="contactClose" aria-label="Close contact form">×</button>
     <h3 id="contactTitle">Contact HealthBridge Access</h3>
     <p>Send us a message and we’ll get back to you.</p>
-    <form class="contact-form" id="contactForm">
+    <form class="contact-form" id="contactForm" action="https://formsubmit.co/healthbridge.access@gmail.com" method="POST">
       <label>
         Name
-        <input type="text" id="contactName" required>
+        <input type="text" id="contactName" name="name" required>
       </label>
       <label>
         Subject
-        <input type="text" id="contactSubject" required>
+        <input type="text" id="contactSubject" name="subject" required>
       </label>
       <label>
         Message
-        <textarea id="contactMessage" required></textarea>
+        <textarea id="contactMessage" name="message" required></textarea>
       </label>
+      <input type="hidden" name="_subject" value="HealthBridge Access Contact Message">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://formsubmit.co/thank-you">
       <button class="btn btn-primary" type="submit">Send Message →</button>
     </form>
   </div>
@@ -947,7 +951,12 @@ section[id] {
     <button class="form-close" type="button" data-close-form aria-label="Close form">×</button>
     <h3 id="partnerFormTitle">Partner with HealthBridge Access</h3>
     <p class="form-intro">Thank you for your interest in supporting HealthBridge Access and our local Orange County community. Please share a few details so we can understand how your organization may be able to work with us.</p>
-    <form class="partnership-form" data-email="healthbridge.access@gmail.com" data-subject="HealthBridge Access Partnership Inquiry">
+    <form class="partnership-form"
+      action="https://formsubmit.co/healthbridge.access@gmail.com"
+      method="POST">
+      <input type="hidden" name="_subject" value="HealthBridge Access Partnership Inquiry">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
       <label>
         Organization name
         <input name="organization" type="text" required>
@@ -1000,7 +1009,7 @@ section[id] {
         <textarea name="notes" required></textarea>
       </label>
 
-      <p class="form-note">Submitting this form will open an email addressed to healthbridge.access@gmail.com with the information you provided.</p>
+      <p class="form-note">Submitting this form sends your information directly to healthbridge.access@gmail.com.</p>
       <button class="btn btn-primary" type="submit">Send Partnership Inquiry →</button>
     </form>
   </div>
@@ -1012,7 +1021,12 @@ section[id] {
     <button class="form-close" type="button" data-close-form aria-label="Close form">×</button>
     <h3 id="volunteerFormTitle">Volunteer with HealthBridge Access</h3>
     <p class="form-intro">We’re looking for students who want to help with planning and future HealthBridge Access activities in Orange County. Tell us a little about yourself and where you would like to help.</p>
-    <form class="partnership-form" data-email="healthbridge.access@gmail.com" data-subject="HealthBridge Access Volunteer Interest">
+    <form class="partnership-form"
+      action="https://formsubmit.co/healthbridge.access@gmail.com"
+      method="POST">
+      <input type="hidden" name="_subject" value="HealthBridge Access Volunteer Interest">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
       <label>
         Full name
         <input name="name" type="text" required>
@@ -1056,7 +1070,7 @@ section[id] {
         <textarea name="notes" required></textarea>
       </label>
 
-      <p class="form-note">Submitting this form will open an email addressed to healthbridge.access@gmail.com with the information you provided.</p>
+      <p class="form-note">Submitting this form sends your information directly to healthbridge.access@gmail.com.</p>
       <button class="btn btn-primary" type="submit">Send Volunteer Interest →</button>
     </form>
   </div>
@@ -1115,7 +1129,6 @@ window.addEventListener("scroll",()=>{
 const contactOpen = document.getElementById("contactOpen");
 const contactModal = document.getElementById("contactModal");
 const contactClose = document.getElementById("contactClose");
-const contactForm = document.getElementById("contactForm");
 
 function closeContactModal(){
   contactModal.classList.remove("open");
@@ -1138,26 +1151,6 @@ document.addEventListener("keydown", (e) => {
   if(e.key === "Escape") closeContactModal();
 });
 
-contactForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const name = document.getElementById("contactName").value.trim();
-  const subject = document.getElementById("contactSubject").value.trim();
-  const message = document.getElementById("contactMessage").value.trim();
-
-  const body =
-    `Name: ${name}\n\n` +
-    `Message:\n${message}`;
-
-  const mailto =
-    `mailto:healthbridge.access@gmail.com` +
-    `?subject=${encodeURIComponent(subject)}` +
-    `&body=${encodeURIComponent(body)}`;
-
-  window.location.href = mailto;
-});
-
-
 // Partner and volunteer forms
 document.querySelectorAll(".form-open").forEach(button => {
   button.addEventListener("click", () => {
@@ -1165,7 +1158,7 @@ document.querySelectorAll(".form-open").forEach(button => {
     const modal = document.getElementById(formId);
     modal.classList.add("open");
     modal.setAttribute("aria-hidden", "false");
-    const firstInput = modal.querySelector("input, select, textarea");
+    const firstInput = modal.querySelector("input:not([type=hidden]), select, textarea");
     if(firstInput) firstInput.focus();
   });
 });
@@ -1196,27 +1189,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-document.querySelectorAll(".partnership-form").forEach(form => {
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const fields = Array.from(form.querySelectorAll("input, select, textarea"));
-    const lines = fields
-      .filter(field => field.value.trim())
-      .map(field => {
-        const label = field.closest("label")?.firstChild?.textContent.trim() || field.name;
-        return `${label}: ${field.value.trim()}`;
-      });
-
-    const recipient = form.getAttribute("data-email");
-    const subject = form.getAttribute("data-subject");
-    const body = lines.join("\n\n");
-
-    window.location.href =
-      `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  });
-});
-
+// Forms now submit directly to FormSubmit instead of opening mailto/search tabs.
 </script>
 </body>
 </html>
