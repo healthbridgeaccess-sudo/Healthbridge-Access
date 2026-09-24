@@ -1262,7 +1262,8 @@ document.querySelectorAll('form[action*="script.google.com/macros"]').forEach(fo
     emailjs.send('service_qikf3vk', 'template_lrewxiq', templateParams)
       .then(() => {
         alert('Thank you! Your submission has been received.');
-        form.reset(); 
+        form.reset();
+        closeContactModal();
       })
       .catch((error) => {
         alert('Oops... Something went wrong. Error: ' + JSON.stringify(error));
