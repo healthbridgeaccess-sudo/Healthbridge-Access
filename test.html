@@ -1263,7 +1263,7 @@ document.querySelectorAll('form[action*="script.google.com/macros"]').forEach(fo
       .then(() => {
         alert('Thank you! Your submission has been received.');
         form.reset();
-        closeContactModal();
+        window.parent.postMessage('close_iframe_form', '*');
       })
       .catch((error) => {
         alert('Oops... Something went wrong. Error: ' + JSON.stringify(error));
