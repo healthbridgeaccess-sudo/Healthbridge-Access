@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HealthBridge Access</title>
+<meta name="description" content="HealthBridge Access is a student-led organization being developed to make healthcare opportunities more accessible in the community.">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
+
+:root{
+  --green:#173f35;
+  --green2:#285c4d;
+  --cream:#f8f6ee;
+  --sage:#dfeadd;
+  --sage2:#cddfcf;
+  --text:#183b33;
+  --muted:#62756e;
+  --white:#fff;
+  --border:rgba(24,59,51,.12);
+  --shadow:0 25px 70px rgba(28,62,52,.11);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--text);
+  background:var(--cream);
+  font-family:"DM Sans",sans-serif;
+  overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit}
+button{font:inherit}
+
+/* background */
+.bg{
+  position:fixed;
+  inset:0;
+  z-index:-5;
+  overflow:hidden;
+  pointer-events:none;
+}
+.blob{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(75px);
+  opacity:.55;
+  animation:drift 16s ease-in-out infinite alternate;
+}
+.b1{width:430px;height:430px;background:#d9e9d8;top:-170px;right:-100px}
+.b2{width:380px;height:380px;background:#e9dfc9;bottom:-180px;left:-120px;animation-delay:-5s}
+.b3{width:260px;height:260px;background:#d5e6df;top:45%;left:45%;animation-delay:-9s}
+@keyframes drift{
+  from{transform:translate(0,0) scale(1)}
+  to{transform:translate(35px,25px) scale(1.1)}
+}
+
+/* navigation */
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:20;
+  padding:18px 22px;
+}
+.nav{
+  width:min(1160px,100%);
+  margin:auto;
+  height:66px;
+  padding:8px 9px 8px 19px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  border:1px solid rgba(24,59,51,.10);
+  border-radius:22px;
+  background:rgba(248,246,238,.78);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  box-shadow:0 12px 40px rgba(24,59,51,.07);
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family:Manrope,sans-serif;
+  font-weight:800;
+  letter-spacing:-.04em;
+  white-space:nowrap;
+}
+.logo-icon{
+  width:38px;height:38px;
+  display:grid;place-items:center;
+  border-radius:12px;
+  background:var(--green);
+  color:#fff;
+  font-size:19px;
+}
+.navlinks{
+  display:flex;
+  align-items:center;
+  gap:2px;
+}
+.navlinks a{
+  padding:10px 13px;
+  border-radius:12px;
+  font-size:13px;
+  font-weight:600;
+  color:#536961;
+  transition:.2s;
+}
+.navlinks a:hover,
+.navlinks a.active{
+  color:var(--green);
+  background:var(--sage);
+}
+.nav-button{
+  padding:12px 17px!important;
+  color:#fff!important;
+  background:var(--green)!important;
+  border-radius:13px!important;
+}
+.menu{
+  display:none;
+  border:0;
+  background:transparent;
+  color:var(--green);
+  font-size:25px;
+  cursor:pointer;
+}
+
+/* general */
+.container{width:min(1160px,calc(100% - 42px));margin:auto}
+section{padding:105px 0}
+.kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:18px;
+  color:#658078;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.kicker i{
+  width:7px;height:7px;
+  border-radius:50%;
+  background:#69947f;
+}
+h1,h2,h3{
+  font-family:Manrope,sans-serif;
+  margin:0;
+  letter-spacing:-.055em;
+}
+.section-title{
+  font-size:clamp(42px,5vw,70px);
+  line-height:.98;
+}
+.muted{color:var(--muted)}
+
+/* hero */
+.hero{
+  min-height:100vh;
+  padding:160px 0 85px;
+  display:flex;
+  align-items:center;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:75px;
+  align-items:center;
+}
+.hero h1{
+  max-width:720px;
+  font-size:clamp(60px,7.5vw,105px);
+  line-height:.9;
+}
+.hero h1 span{color:#73917f}
+.hero-text{
+  max-width:610px;
+  margin:27px 0 32px;
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.7;
+}
+.buttons{display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  min-height:51px;
+  padding:0 20px;
+  border-radius:14px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  border:1px solid var(--border);
+  transition:.25s;
+}
+.btn:hover{transform:translateY(-3px);box-shadow:0 13px 28px rgba(24,59,51,.12)}
+.btn-primary{background:var(--green);color:#fff;border-color:var(--green)}
+.btn-light{background:rgba(255,255,255,.48)}
+
+.hero-visual{
+  min-height:525px;
+  border-radius:42px;
+  background:linear-gradient(145deg,#dfeadd,#cbded0);
+  position:relative;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.hero-visual:before{
+  content:"";
+  position:absolute;
+  width:370px;height:370px;
+  border-radius:50%;
+  background:rgba(255,255,255,.38);
+  top:-145px;right:-100px;
+}
+.hero-visual:after{
+  content:"";
+  position:absolute;
+  width:280px;height:280px;
+  border-radius:50%;
+  background:rgba(23,63,53,.055);
+  bottom:-130px;left:-90px;
+}
+.visual-content{
+  position:absolute;
+  inset:30px;
+  z-index:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.visual-icon{
+  width:67px;height:67px;
+  display:grid;place-items:center;
+  border-radius:20px;
+  background:rgba(255,255,255,.63);
+  font-size:29px;
+}
+.visual-copy h2{
+  max-width:390px;
+  font-size:47px;
+  line-height:1;
+}
+.visual-copy p{
+  max-width:350px;
+  color:#587068;
+  margin:17px 0 0;
+  line-height:1.6;
+}
+.visual-bottom{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.visual-stat{
+  padding:18px;
+  border-radius:19px;
+  background:rgba(255,255,255,.53);
+  border:1px solid rgba(255,255,255,.5);
+}
+.visual-stat b{display:block;font:800 27px Manrope}
+.visual-stat small{color:#60756d}
+
+/* content cards */
+.intro-row{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:35px;
+  margin-bottom:38px;
+}
+.intro-row p{max-width:460px;line-height:1.7}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+.card{
+  min-height:320px;
+  padding:30px;
+  border:1px solid var(--border);
+  border-radius:28px;
+  background:rgba(255,255,255,.48);
+  transition:.25s;
+}
+.card:hover{
+  transform:translateY(-7px);
+  background:rgba(255,255,255,.75);
+  box-shadow:var(--shadow);
+}
+.num{
+  width:43px;height:43px;
+  display:grid;place-items:center;
+  border-radius:14px;
+  background:var(--sage);
+  font-weight:800;
+  margin-bottom:82px;
+}
+.card h3{font-size:27px;margin-bottom:10px}
+.card p{margin:0;color:var(--muted);line-height:1.7}
+
+/* impact */
+.impact-wrap{
+  border-radius:42px;
+  padding:65px;
+  background:var(--green);
+  color:white;
+  overflow:hidden;
+  position:relative;
+}
+.impact-wrap:after{
+  content:"";
+  position:absolute;
+  width:480px;height:480px;
+  border-radius:50%;
+  right:-190px;top:-230px;
+  background:rgba(255,255,255,.07);
+}
+.impact-grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+  align-items:center;
+}
+.impact-wrap .kicker{color:#a9c6b8}
+.impact-wrap h2{font-size:clamp(44px,5vw,70px);line-height:.98}
+.impact-wrap p{color:#c5d4ce;line-height:1.7;max-width:510px;margin-top:22px}
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.big-stat{
+  padding:27px;
+  min-height:150px;
+  border-radius:22px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.12);
+}
+.big-stat b{display:block;font:800 43px Manrope}
+.big-stat span{color:#b8cbc3;font-size:13px}
+
+/* events */
+.events{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:16px;
+}
+.event{
+  padding:34px;
+  border-radius:28px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.48);
+}
+.event.large{min-height:310px;background:linear-gradient(145deg,#e1ecdf,#d4e5d7)}
+.event-date{
+  color:#668077;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-weight:800;
+  font-size:11px;
+}
+.event h3{font-size:34px;margin:18px 0 10px}
+.event p{color:var(--muted);line-height:1.7;max-width:560px}
+.event + .event{margin-top:16px}
+.pill{
+  display:inline-block;
+  margin-top:20px;
+  padding:7px 11px;
+  border-radius:999px;
+  background:rgba(255,255,255,.55);
+  font-size:11px;
+  font-weight:800;
+}
+
+/* partners */
+.partner-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+.partner{
+  min-height:230px;
+  padding:32px;
+  border-radius:28px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.48);
+}
+.partner h3{font-size:30px;margin:35px 0 10px}
+.partner p{color:var(--muted);line-height:1.7}
+
+/* contact */
+.contact{
+  text-align:center;
+  padding:80px 25px;
+  border-radius:42px;
+  background:linear-gradient(135deg,#dcebdd,#ebe6d3);
+}
+.contact h2{font-size:clamp(45px,6vw,78px);line-height:.95}
+.contact p{max-width:600px;margin:20px auto 28px;color:var(--muted);line-height:1.7}
+.contact .buttons{justify-content:center}
+
+/* footer */
+footer{padding:42px 0 55px;color:#71817c;font-size:13px}
+.footer-line{
+  padding-top:22px;
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+}
+
+/* animations */
+.reveal{
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity .75s ease,transform .75s ease;
+}
+.reveal.show{opacity:1;transform:none}
+
+/* mobile */
+@media(max-width:850px){
+  header{padding:10px}
+  .nav{height:60px;padding-left:14px}
+  .menu{display:block}
+  .navlinks{
+    display:none;
+    position:absolute;
+    left:10px;right:10px;top:70px;
+    padding:9px;
+    flex-direction:column;
+    align-items:stretch;
+    background:rgba(248,246,238,.97);
+    border:1px solid var(--border);
+    border-radius:20px;
+    box-shadow:var(--shadow);
+  }
+  .navlinks.open{display:flex}
+  .navlinks a{padding:13px 14px}
+  .nav-button{background:transparent!important;color:var(--green)!important}
+  .hero{padding:125px 0 65px}
+  .hero-grid{grid-template-columns:1fr;gap:35px}
+  .hero h1{font-size:clamp(55px,15vw,85px)}
+  .hero-text{font-size:16px}
+  .hero-visual{min-height:400px;border-radius:30px}
+  .visual-copy h2{font-size:37px}
+  section{padding:75px 0}
+  .intro-row{display:block}
+  .intro-row p{margin-top:15px}
+  .cards,.impact-grid,.events,.partner-grid{grid-template-columns:1fr}
+  .card{min-height:0}
+  .num{margin-bottom:45px}
+  .impact-wrap{padding:38px 25px;border-radius:30px}
+  .stats{grid-template-columns:1fr 1fr}
+  .contact{border-radius:30px;padding:55px 22px}
+}
+@media(max-width:450px){
+  .container{width:calc(100% - 28px)}
+  .logo{font-size:14px}
+  .logo-icon{width:34px;height:34px}
+  .stats{grid-template-columns:1fr}
+  .visual-bottom{grid-template-columns:1fr}
+  .hero-visual{min-height:460px}
+  .footer-line{display:block}
+  .footer-line p+p{margin-top:8px}
+}
+
+/* HealthBridge Access navigation update */
+.site-nav {
+  position: sticky;
+  top: 18px;
+  z-index: 1000;
+}
+.site-nav a {
+  cursor: pointer;
+}
+section[id] {
+  scroll-margin-top: 110px;
+}
+
+.about-section{padding:105px 0}.about-grid{display:grid;grid-template-columns:minmax(280px,.9fr) minmax(0,1.4fr);gap:80px;align-items:start}.about-heading h2{margin:14px 0 0;font-size:clamp(40px,5vw,68px);line-height:1.03;letter-spacing:-.045em;max-width:520px}.about-copy{max-width:720px}.about-copy p{margin:0 0 24px;font-size:18px;line-height:1.8}.about-highlight{margin-top:34px;padding:28px 30px;border:1px solid rgba(20,55,45,.12);border-radius:22px;background:rgba(255,255,255,.4)}.about-highlight strong{display:block;margin-bottom:8px;font-size:13px;letter-spacing:.1em;text-transform:uppercase}.about-highlight span{font-size:17px;line-height:1.65}@media(max-width:850px){.about-grid{grid-template-columns:1fr;gap:32px}.about-heading h2{font-size:44px}}
+.card-button{margin-top:22px;}
+@media(max-width:850px){.card-button{width:100%;}}
+
+/* members */
+.member-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+.member{
+  padding:24px;
+  border:1px solid var(--border);
+  border-radius:28px;
+  background:rgba(255,255,255,.48);
+  transition:.25s;
+}
+.member:hover{
+  transform:translateY(-7px);
+  background:rgba(255,255,255,.75);
+  box-shadow:var(--shadow);
+}
+.member-photo{
+  aspect-ratio:1/1;
+  border-radius:22px;
+  overflow:hidden;
+  background:linear-gradient(145deg,#dfeadd,#cbded0);
+}
+.member-photo img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.member-body{padding:24px 4px 2px}
+.member-body .kicker{margin-bottom:10px}
+.member h3{font-size:31px}
+.member-bio{margin:14px 0 0;color:var(--muted);line-height:1.75}
+@media(max-width:850px){
+  .member-grid{grid-template-columns:1fr}
+  .member h3{font-size:27px}
+}
+
+/* HealthBridge logo mark */
+.logo-icon{
+  overflow:hidden;
+  padding:3px;
+  background:#fff;
+}
+.logo-icon img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:9px;
+}
+.visual-icon{
+  padding:8px;
+  overflow:hidden;
+}
+.visual-icon img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:14px;
+}
+
+/* Contact popup */
+.contact-modal{
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(12,32,27,.42);
+  backdrop-filter:blur(8px);
+}
+.contact-modal.open{display:flex}
+.contact-box{
+  width:min(560px,100%);
+  max-height:90vh;
+  overflow:auto;
+  padding:32px;
+  border-radius:28px;
+  background:var(--cream);
+  border:1px solid var(--border);
+  box-shadow:0 30px 90px rgba(20,55,45,.22);
+  position:relative;
+}
+.contact-box h3{
+  font-size:36px;
+  margin-bottom:8px;
+}
+.contact-box > p{
+  color:var(--muted);
+  line-height:1.6;
+  margin:0 0 22px;
+}
+.contact-close{
+  position:absolute;
+  top:16px;
+  right:16px;
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:12px;
+  background:var(--sage);
+  color:var(--green);
+  font-size:24px;
+  cursor:pointer;
+}
+.contact-form{
+  display:grid;
+  gap:14px;
+}
+.contact-form label{
+  font-size:13px;
+  font-weight:700;
+  color:var(--green);
+}
+.contact-form input,
+.contact-form textarea{
+  width:100%;
+  margin-top:7px;
+  padding:13px 14px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:rgba(255,255,255,.7);
+  color:var(--text);
+  font:inherit;
+  outline:none;
+}
+.contact-form input:focus,
+.contact-form textarea:focus{
+  border-color:#789c8d;
+  box-shadow:0 0 0 3px rgba(120,156,141,.12);
+}
+.contact-form textarea{
+  min-height:150px;
+  resize:vertical;
+}
+@media(max-width:500px){
+  .contact-box{padding:25px 20px}
+  .contact-box h3{font-size:30px}
+}
+
+
+/* Event photo gallery placeholder */
+.event-gallery{
+  width:100%;
+  height:100%;
+  min-height:525px;
+  padding:30px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:1.25fr 1fr;
+  gap:12px;
+}
+.event-photo{
+  border-radius:22px;
+  background:rgba(255,255,255,.28);
+  border:1px solid rgba(255,255,255,.55);
+  overflow:hidden;
+}
+.event-photo:first-child{
+  grid-row:1 / 3;
+}
+.event-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+@media(max-width:850px){
+  .event-gallery{
+    min-height:400px;
+    padding:22px;
+  }
+}
+
+
+/* Partner + volunteer forms */
+.form-modal{
+  position:fixed;
+  inset:0;
+  z-index:2100;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(12,32,27,.46);
+  backdrop-filter:blur(8px);
+}
+.form-modal.open{display:flex}
+.form-box{
+  width:min(620px,100%);
+  max-height:90vh;
+  overflow:auto;
+  padding:32px;
+  border-radius:28px;
+  background:var(--cream);
+  border:1px solid var(--border);
+  box-shadow:0 30px 90px rgba(20,55,45,.24);
+  position:relative;
+}
+.form-box h3{font-size:36px;margin-bottom:8px}
+.form-box .form-intro{color:var(--muted);line-height:1.6;margin:0 0 22px}
+.form-close{
+  position:absolute;
+  top:16px;
+  right:16px;
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:12px;
+  background:var(--sage);
+  color:var(--green);
+  font-size:24px;
+  cursor:pointer;
+}
+.partnership-form{
+  display:grid;
+  gap:15px;
+}
+.partnership-form label{
+  font-size:13px;
+  font-weight:700;
+  color:var(--green);
+}
+.partnership-form input,
+.partnership-form select,
+.partnership-form textarea{
+  width:100%;
+  margin-top:7px;
+  padding:13px 14px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:rgba(255,255,255,.72);
+  color:var(--text);
+  font:inherit;
+  outline:none;
+}
+.partnership-form input:focus,
+.partnership-form select:focus,
+.partnership-form textarea:focus{
+  border-color:#789c8d;
+  box-shadow:0 0 0 3px rgba(120,156,141,.12);
+}
+.partnership-form textarea{
+  min-height:120px;
+  resize:vertical;
+}
+.form-note{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.5;
+  margin:0;
+}
+@media(max-width:500px){
+  .form-box{padding:25px 20px}
+  .form-box h3{font-size:30px}
+}
+
+
+/* Required form fields */
+.partnership-form input:required,
+.partnership-form select:required,
+.partnership-form textarea:required{
+  border-left:3px solid var(--green);
+}
+
+</style>
+</head>
+
+<body>
+<iframe name="healthbridgeFormFrame" id="healthbridgeFormFrame" title="Form submission" style="display:none;"></iframe>
+<div class="bg">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
+
+<header>
+  <nav class="nav">
+    <a href="#home" class="logo">
+      <span class="logo-icon"><img src="" alt="HealthBridge Access logo"></span>
+      <span>HealthBridge Access</span>
+    </a>
+
+    <button class="menu" id="menu" aria-label="Open navigation">☰</button>
+
+    <div class="navlinks" id="navlinks">
+      <a class="active" href="#home">Home</a>
+      <a href="#members">About</a>
+      <a href="#members-panel">Members</a>
+      <a href="#impact">Impact</a>
+      <a href="#events">Events</a>
+      <a class="nav-button" href="#contact">Get Involved</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div class="reveal">
+      <div class="kicker"><i></i> Community healthcare access</div>
+      <h1>Bringing healthcare <span>closer.</span></h1>
+      <p class="hero-text">
+        HealthBridge Access is a student-led organization in Orange County, California, currently being developed
+        to create future healthcare-related community events and make healthcare resources more accessible.
+      </p>
+      <div class="buttons">
+        <a class="btn btn-primary" href="#events">Explore Events →</a>
+        <a class="btn btn-light" href="#partners">Partner With Us</a>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal">
+      <div class="event-gallery">
+        <!-- Add your real event photos here later.
+             Example:
+             <div class="event-photo"><img src="assets/events/event1.jpg" alt="HealthBridge Access community event"></div>
+        -->
+        <div class="event-photo"></div>
+        <div class="event-photo"></div>
+        <div class="event-photo"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="members" class="about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-heading reveal">
+        <div class="section-label">ABOUT US</div>
+        <h2>Healthcare should be accessible to everyone.</h2>
+      </div>
+      <div class="about-copy reveal">
+        <p><strong>HealthBridge Access</strong> is a student-led organization based in Orange County, California, focused on addressing barriers to affordable healthcare in our community. For people who are uninsured or unable to afford healthcare, accessing basic health services can be difficult. We believe everyone deserves access to healthcare, regardless of their financial situation.</p>
+        <p>We are currently developing HealthBridge Access with the goal of bringing free and accessible healthcare opportunities into the community. We plan to organize community events where qualified healthcare professionals and organizations can provide services such as free health screenings and other healthcare services, depending on each event.</p>
+        <p>By bringing these opportunities closer to the community, we hope to help people who may otherwise have limited access to affordable healthcare. As HealthBridge Access grows, we plan to build relationships with healthcare professionals and organizations that can help make these events possible.</p>
+        <div class="about-highlight"><strong>Our Mission</strong><span>To help make healthcare more accessible and affordable by bringing free healthcare opportunities to people in our community who may have limited access to care.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section id="members-panel">
+  <div class="container">
+    <div class="intro-row reveal"><div><div class="kicker"><i></i> Members</div><h2 class="section-title">Our members.</h2></div><p class="muted">HealthBridge Access is being built by students who want to help make healthcare more accessible in their community.</p></div>
+
+    <div class="member-grid">
+      <article class="member">
+        <div class="member-photo">
+          <img src="" alt="Allen Lee, Co-Founder and Operations Director of HealthBridge Access" width="1135" height="1513" style="object-position:center 45%" loading="lazy">
+        </div>
+        <div class="member-body">
+          <div class="kicker"><i></i> Co-Founder &middot; Operations Director</div>
+          <h3>Allen Lee</h3>
+          <p class="member-bio">I’m Allen Lee, a junior at Beckman High School. I really enjoy chemistry, and outside of school I’m into golf, basketball, and hip-hop dancing. I care deeply about the people in my community and believe that healthcare should be accessible to everyone regardless of their financial situation. Through HealthBridge Access, I want to help address healthcare affordability by connecting people with opportunities to receive quality care and bringing together organizations that can help make that possible.</p>
+        </div>
+      </article>
+
+      <article class="member">
+        <div class="member-photo">
+          <img src="" alt="Akshay Sharma, Co-Founder and Community Outreach Director of HealthBridge Access" width="1080" height="1616" style="object-position:center 22%" loading="lazy">
+        </div>
+        <div class="member-body">
+          <div class="kicker"><i></i> Co-Founder &middot; Community Outreach Director</div>
+          <h3>Akshay Sharma</h3>
+          <p class="member-bio">I’m Akshay Sharma, a junior at Beckman High School. Outside of school, I enjoy golfing, playing basketball, and keeping up with sports. I’m passionate about healthcare equity and believe that everyone should have a fair opportunity to receive the care they need. Through HealthBridge Access, I hope to bring together students, healthcare professionals, and local organizations to create opportunities that can directly benefit people in our area.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="impact">
+  <div class="container">
+    <div class="impact-wrap reveal">
+      <div class="impact-grid">
+        <div><div class="kicker"><i></i> Our impact</div><h2>Our impact will grow from here.</h2><p>HealthBridge Access is currently in development. As we organize events and grow our organization, we will update these numbers to show our impact in the community.</p></div>
+        <div class="stats">
+          <div class="big-stat"><b>0</b><span>Community events</span></div>
+          <div class="big-stat"><b>0</b><span>People reached</span></div>
+          <div class="big-stat"><b>0</b><span>Student volunteers</span></div>
+          <div class="big-stat"><b>0</b><span>Healthcare partners</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="events">
+  <div class="container">
+    <div class="intro-row reveal"><div><div class="kicker"><i></i> Events</div><h2 class="section-title">Events coming soon.</h2></div><p class="muted">We are currently planning our first community event. Details will be announced once plans are finalized.</p></div>
+  </div>
+</section>
+
+<section id="partners">
+  <div class="container">
+    <div class="intro-row reveal"><div><div class="kicker"><i></i> Get involved</div><h2 class="section-title">Partners &amp; volunteers.</h2></div><p class="muted">HealthBridge Access is looking to connect with healthcare organizations, professionals, and students who want to help support future community events across Orange County.</p></div>
+    <div class="partner-grid">
+      <article class="partner reveal"><div class="kicker"><i></i> Healthcare organizations</div><h3>Partner with HealthBridge Access.</h3><p>We hope to work with qualified healthcare organizations and professionals who can help make future community events possible.</p><button class="btn btn-primary card-button form-open" type="button" data-form="partnerForm">Partner With Us →</button></article>
+      <article class="partner reveal"><div class="kicker"><i></i> Students</div><h3>Join our organization.</h3><p>We are looking for students who want to help with planning, outreach, logistics, communication, and future community events.</p><button class="btn btn-primary card-button form-open" type="button" data-form="volunteerForm">Sign Up to Volunteer →</button></article>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="contact reveal">
+      <div class="kicker"><i></i> Get involved</div>
+      <h2>Help build the bridge.</h2>
+      <p>Connect with HealthBridge Access to learn about upcoming events and future opportunities to get involved.</p>
+      <div class="buttons">
+        <button class="btn btn-primary" type="button" id="contactOpen">Contact Us</button>
+        <a class="btn btn-light" href="#events">View Events</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Contact popup -->
+<div class="contact-modal" id="contactModal" aria-hidden="true">
+  <div class="contact-box" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+    <button class="contact-close" type="button" id="contactClose" aria-label="Close contact form">×</button>
+    <h3 id="contactTitle">Contact HealthBridge Access</h3>
+    <p>Send us a message and we’ll get back to you.</p>
+    <form class="contact-form" id="contact-form">
+      <input type="hidden" name="form_type" value="Contact">
+      <input type="hidden" name="form_type" value="Contact">
+      <input type="hidden" name="submission_token" value="">
+<input type="hidden" name="form_type" value="Contact">
+      <label>
+        Name
+        <input type="text" id="contactName" name="from_name"  required>
+      </label>
+      <label>
+        Email
+        <input type="email" id="contactEmail" name="reply_to" autocomplete="email" required>
+      </label>
+      <label>
+        Subject
+        <input type="text" id="contactSubject" name="subject" name="subject" required>
+      </label>
+      <label>
+        Message
+        <textarea id="contactMessage" name="message" name="message" required></textarea>
+      </label>
+      <button class="btn btn-primary" type="submit">Send Message →</button>
+    </form>
+  </div>
+</div>
+
+
+<!-- Partner application form -->
+<div class="form-modal" id="partnerForm" aria-hidden="true">
+  <div class="form-box" role="dialog" aria-modal="true" aria-labelledby="partnerFormTitle">
+    <button class="form-close" type="button" data-close-form aria-label="Close form">×</button>
+    <h3 id="partnerFormTitle">Partner with HealthBridge Access</h3>
+    <p class="form-intro">Thank you for your interest in supporting HealthBridge Access and our local Orange County community. Please share a few details so we can understand how your organization may be able to work with us.</p>
+    <form class="partnership-form" id="partner-form" target="healthbridgeFormFrame" data-email="healthbridge.access@gmail.com" data-subject="HealthBridge Access Partnership Inquiry">
+      <input type="hidden" name="form_type" value="Partnership">
+<input type="hidden" name="form_type" value="Partnership">
+      <label>
+        Organization name
+        <input name="org_name" type="text" required>
+      </label>
+
+      <label>
+        Your name
+        <input name="contact_name" type="text" required>
+      </label>
+
+      <label>
+        Email
+        <input name="reply_to" type="email" required>
+      </label>
+
+      <label>
+        Organization website
+        <input name="website" type="url" placeholder="https://" required>
+      </label>
+
+      <label>
+        What type of organization are you?
+        <select name="organization_type" required>
+          <option value="">Please select</option>
+          <option>Healthcare provider or practice</option>
+          <option>Healthcare organization</option>
+          <option>Community organization</option>
+          <option>School or educational organization</option>
+          <option>Business or other organization</option>
+        </select>
+      </label>
+
+      <label>
+        How would you be interested in supporting HealthBridge Access?
+        <textarea name="support" placeholder="For example: providing a service, helping with a community event, providing educational materials, or another form of support." required></textarea>
+      </label>
+
+      <label>
+        Are you able to support activities in Orange County, California?
+        <select name="orange_county" required>
+          <option value="">Please select</option>
+          <option>Yes</option>
+          <option>Possibly</option>
+          <option>No</option>
+        </select>
+      </label>
+
+      <label>
+        Anything else you would like us to know
+        <textarea name="notes" required></textarea>
+      </label>
+
+      <p class="form-note">Submitting this form securely sends your information to HealthBridge Access.</p>
+      <button class="btn btn-primary" type="submit">Send Partnership Inquiry →</button>
+    </form>
+  </div>
+</div>
+
+<!-- Volunteer application form -->
+<div class="form-modal" id="volunteerForm" aria-hidden="true">
+  <div class="form-box" role="dialog" aria-modal="true" aria-labelledby="volunteerFormTitle">
+    <button class="form-close" type="button" data-close-form aria-label="Close form">×</button>
+    <h3 id="volunteerFormTitle">Volunteer with HealthBridge Access</h3>
+    <p class="form-intro">We’re looking for students who want to help with planning and future HealthBridge Access activities in Orange County. Tell us a little about yourself and where you would like to help.</p>
+    <form class="partnership-form" id="volunteer-form" target="healthbridgeFormFrame" data-email="healthbridge.access@gmail.com" data-subject="HealthBridge Access Volunteer Interest">
+      <input type="hidden" name="form_type" value="Volunteer">
+<input type="hidden" name="form_type" value="Volunteer">
+      <label>
+        Full name
+        <input name="from_name" type="text" required>
+      </label>
+
+      <label>
+        Email
+        <input name="reply_to" type="email" required>
+      </label>
+
+      <label>
+        School or organization
+        <input name="school" type="text" required>
+      </label>
+
+      <label>
+        What would you most like to help with?
+        <select name="interest" required>
+          <option value="">Please select</option>
+          <option>Event planning</option>
+          <option>Community outreach</option>
+          <option>Communications or social media</option>
+          <option>Event logistics</option>
+          <option>Working directly at community events</option>
+          <option>Something else</option>
+        </select>
+      </label>
+
+      <label>
+        What interests you about HealthBridge Access?
+        <textarea name="why" required></textarea>
+      </label>
+
+      <label>
+        When are you generally available?
+        <textarea name="availability" placeholder="For example: weekday afternoons, weekends, or specific days." required></textarea>
+      </label>
+
+      <label>
+        Is there anything else you would like us to know
+        <textarea name="notes" required></textarea>
+      </label>
+
+      <p class="form-note">Submitting this form securely sends your information to HealthBridge Access.</p>
+      <button class="btn btn-primary" type="submit">Send Volunteer Interest →</button>
+    </form>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <div class="container footer-line">
+    <p>© 2026 HealthBridge Access</p>
+    <p>Making healthcare more accessible in our community.</p>
+  </div>
+</footer>
+
+<script>
+const menu = document.getElementById("menu");
+const nav = document.getElementById("navlinks");
+
+menu.addEventListener("click", () => {
+  nav.classList.toggle("open");
+  menu.textContent = nav.classList.contains("open") ? "×" : "☰";
+});
+
+document.querySelectorAll(".navlinks a").forEach(link => {
+  link.addEventListener("click", () => {
+    nav.classList.remove("open");
+    menu.textContent = "☰";
+  });
+});
+
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:.12});
+
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+const sections = document.querySelectorAll("section[id]");
+const links = document.querySelectorAll(".navlinks a:not(.nav-button)");
+
+window.addEventListener("scroll",()=>{
+  let current = "";
+  sections.forEach(section=>{
+    if(window.scrollY >= section.offsetTop - 180) current = section.id;
+  });
+  links.forEach(link=>{
+    link.classList.toggle("active",link.getAttribute("href")==="#"+current);
+  });
+});
+
+// Contact popup
+const contactOpen = document.getElementById("contactOpen");
+const contactModal = document.getElementById("contactModal");
+const contactClose = document.getElementById("contactClose");
+const contactForm = document.getElementById("contactForm");
+
+function closeContactModal(){
+  contactModal.classList.remove("open");
+  contactModal.setAttribute("aria-hidden","true");
+}
+
+contactOpen.addEventListener("click", () => {
+  contactModal.classList.add("open");
+  contactModal.setAttribute("aria-hidden","false");
+  document.getElementById("contactName").focus();
+});
+
+contactClose.addEventListener("click", closeContactModal);
+
+contactModal.addEventListener("click", (e) => {
+  if(e.target === contactModal) closeContactModal();
+});
+
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape") closeContactModal();
+});
+
+// Partner and volunteer forms
+document.querySelectorAll(".form-open").forEach(button => {
+  button.addEventListener("click", () => {
+    const formId = button.getAttribute("data-form");
+    const modal = document.getElementById(formId);
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    const firstInput = modal.querySelector("input, select, textarea");
+    if(firstInput) firstInput.focus();
+  });
+});
+
+document.querySelectorAll("[data-close-form]").forEach(button => {
+  button.addEventListener("click", () => {
+    const modal = button.closest(".form-modal");
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+  });
+});
+
+document.querySelectorAll(".form-modal").forEach(modal => {
+  modal.addEventListener("click", (e) => {
+    if(e.target === modal){
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+  });
+});
+
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape"){
+    document.querySelectorAll(".form-modal.open").forEach(modal => {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+    });
+  }
+});
+
+
+
+
+
+// Email-only HealthBridge Access forms.
+// The browser submits into a hidden iframe, so the page never opens Gmail or another tab.
+document.querySelectorAll('form[action*="script.google.com/macros"]').forEach(form => {
+  form.addEventListener('submit', () => {
+    const button = form.querySelector('button[type="submit"]');
+    if (!button) return;
+
+    button.dataset.originalText = button.textContent;
+    button.disabled = true;
+    button.textContent = 'Sending...';
+
+    setTimeout(() => {
+      form.reset();
+
+      const modal = form.closest('.contact-modal, .form-modal');
+      if (modal) {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+
+      button.disabled = false;
+      button.textContent = button.dataset.originalText || 'Send';
+      alert('Thanks! Your message was sent to HealthBridge Access.');
+    }, 1800);
+  });
+});
+</script>
+<script type="text/javascript">
+!function(e){var t=e.emailjs=e.emailjs||{};t.init=function(e){t._id=e},t.send=function(e,n,r){return t._send(e,n,r)},t.sendForm=function(e,n,r){return t._sendForm(e,n,r)},t._send=function(e,t,n){return fetch("https://emailjs.com",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({service_id:e,template_id:t,user_id:this._id,template_params:n})}).then((function(e){if(!e.ok)return e.json().then((function(e){throw e}));return e}))},t._sendForm=function(e,n,r){var a=new FormData("string"==typeof r?document.getElementById(r):r);return a.append("service_id",e),a.append("template_id",n),a.append("user_id",this._id),fetch("https://emailjs.com-form",{method:"POST",body:a}).then((function(e){if(!e.ok)return e.json().then((function(e){throw e}));return e}))}}(window);
+</script>
+
+<script type="text/javascript">
+  (function() {
+    emailjs.init("5XIn9deAFxl0IxiUn"); // Replace with your Public Key
+  })();
+
+  function handleFormSubmit(event, formTitle) {
+    event.preventDefault(); 
+
+    const form = event.target;
+    const submitBtn = form.querySelector('button[type="submit"]') || form.querySelector('input[type="submit"]');
+    
+    const originalText = submitBtn.innerText;
+    submitBtn.innerText = "Sending...";
+    submitBtn.disabled = true;
+
+    // 1. Automatically build a beautiful text summary of all unique fields
+    let dynamicContent = "";
+    const formData = new FormData(form);
+    
+    formData.forEach((value, key) => {
+        // Skip common fields we already map to the top of our template
+        if (key !== "from_name" && key !== "reply_to" && key !== "contact_name") {
+            // Clean up the field names for readability (e.g., "org_name" becomes "Org Name")
+            let friendlyKey = key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+            dynamicContent += `${friendlyKey}: ${value}\n`;
+        }
+    });
+
+    // 2. Map fields specifically to match our single smart template variables
+    const templateParams = {
+        form_title: formTitle,
+        sender_name: formData.get("from_name") || formData.get("contact_name") || "Not Provided",
+        reply_to: formData.get("reply_to"),
+        dynamic_content: dynamicContent
+    };
+
+    // 3. Send using your SINGLE Template ID
+    emailjs.send('service_qikf3vk', 'template_lrewxiq', templateParams)
+      .then(() => {
+        alert('Thank you! Your submission has been received.');
+        form.reset(); 
+      })
+      .catch((error) => {
+        alert('Oops... Something went wrong. Error: ' + JSON.stringify(error));
+      })
+      .finally(() => {
+        submitBtn.innerText = originalText;
+        submitBtn.disabled = false;
+      });
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const contactForm = document.getElementById("contact-form");
+    const partnerForm = document.getElementById("partner-form");
+    const volunteerForm = document.getElementById("volunteer-form");
+
+    // Pass the matching Form Titles to the handler
+    if (contactForm) contactForm.addEventListener("submit", (e) => handleFormSubmit(e, "Contact Form Message"));
+    if (partnerForm) partnerForm.addEventListener("submit", (e) => handleFormSubmit(e, "Partnership Inquiry"));
+    if (volunteerForm) volunteerForm.addEventListener("submit", (e) => handleFormSubmit(e, "Volunteer Sign-up"));
+  });
+</script>
+</body>
+</html>
